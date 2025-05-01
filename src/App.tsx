@@ -45,7 +45,7 @@ function App() {
   }
 
   if (isLoggedIn) {
-    return <HomePage username={username} onLogout={handleLogout} onFilaPage={() => { }} />
+    return <HomePage username={username} onLogout={handleLogout} />
   }
 
   return (
