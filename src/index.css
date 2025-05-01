@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'OptaFont';
+  src: url('./assets/Fonts/RedHatDisplay-VariableFont_wght.ttf') format('truetype');
+}
+
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: 'OptaFont';
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: OptaFont;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
