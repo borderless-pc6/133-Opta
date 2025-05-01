@@ -10,10 +10,9 @@ import ClienteApi from "../ClienteApi/ClienteApi"
 interface HomePageProps {
     username: string
     onLogout: () => void
-    onTicketPage: () => void
 }
 
-const HomePage: React.FC<HomePageProps> = ({ username, onLogout, onTicketPage }) => {
+const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
 
     const [activeButton, setActiveButton] = useState<number | null>(null)
     const [showFilaPage, setShowFilaPage] = useState(false)

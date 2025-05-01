@@ -25,7 +25,7 @@ const FILA_ID = "fila-principal"
 const savedFilas = JSON.parse(localStorage.getItem(FILA_STORAGE_KEY) || "{}")
 const filaPrincipal: QueueItem[] = savedFilas[FILA_ID] || []
 
-const FilaPage: React.FC<FilaPageProps> = ({ username, onHomePage, onLogout }) => {
+const FilaPage: React.FC<FilaPageProps> = ({ onHomePage, onLogout }) => {
     const [queueItems, setQueueItems] = useState<QueueItem[]>(filaPrincipal)
     const [modalOpen, setModalOpen] = useState(false)
     const [modalMode, setModalMode] = useState<ModalMode>(null)
