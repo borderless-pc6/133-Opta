@@ -306,7 +306,7 @@ const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
                     </div>
 
                     <div className="user-info">
-                        <span>Bem-vindo!{/* {username} */} "Nome de usuario" </span>
+                        <span>Bem-vindo!{ } "Nome de usuario" </span>
                     </div>
                 </div>
             </header>
