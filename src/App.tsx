@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import "./App.css"
-import HomePage from "./Components/HomePage/HomePage"
+import HomePage from "./Pages/HomePage/HomePage"
 import { auth } from "../firebaseconfig"
 import { signInWithEmailAndPassword, signOut } from "firebase/auth"
 import './index.css'
