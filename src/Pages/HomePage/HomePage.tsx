@@ -7,6 +7,7 @@ import "./HomePage.css"
 import FilaPage from "../FilaPage/FilaPage"
 import ClienteApi from "../ClienteApi/ClienteApi"
 import UsersPage from "../UsersPage/UsersPage"
+import CreateUsersPage from "../RegisterPage/CreateUsers"
 
 interface HomePageProps {
     username: string

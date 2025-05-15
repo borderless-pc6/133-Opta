@@ -1,11 +1,11 @@
-"\"use client"
+"use client"
 import type React from "react"
 
 import { useState } from "react"
 import { Search, UserPlus, Filter, MoreVertical, Home, LogOut, User } from "lucide-react"
+import CreateUsers from "../RegisterPage/CreateUsers"
 import "./UsersPage.css"
 
-// Interface de props
 interface UsersPageProps {
     username: string
     onHomePage: () => void
@@ -13,7 +13,6 @@ interface UsersPageProps {
     onCreateUser: () => void
 }
 
-// Dados de exemplo
 const usuariosIniciais = [
     {
         id: 1,
@@ -63,10 +62,21 @@ const usuariosIniciais = [
 ]
 
 const UsersPage: React.FC<UsersPageProps> = ({ username, onHomePage, onLogout }) => {
-    const [usuarios] = useState(usuariosIniciais)
+    const [usuarios, setUsuarios] = useState(usuariosIniciais)
     const [termoBusca, setTermoBusca] = useState("")
+    const [mostrarFormulario, setMostrarFormulario] = useState(false)
+    const [notificacao, setNotificacao] = useState("")
 
-    // Filtrar usuários com base no termo de busca
+    const handleUsuarioCriado = (novoUsuario: any) => {
+        setUsuarios((prev) => [...prev, { ...novoUsuario, id: prev.length + 1 }])
+        setMostrarFormulario(false)
+        setNotificacao("Usuário criado com sucesso!")
+
+        setTimeout(() => {
+            setNotificacao("")
+        }, 3000)
+    }
+
     const usuariosFiltrados = usuarios.filter(
         (usuario) =>
             usuario.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
@@ -77,7 +87,12 @@ const UsersPage: React.FC<UsersPageProps> = ({ username, onHomePage, onLogout })
 
     return (
         <div className="users-page-container">
-            {/* Header com informações do usuário e navegação */}
+            {notificacao && (
+                <div className="notificacao-sucesso">
+                    {notificacao}
+                </div>
+            )}
+
             <div className="page-header">
                 <div className="header-actions">
                     <button className="button outline-button" onClick={onHomePage}>
@@ -106,7 +121,9 @@ const UsersPage: React.FC<UsersPageProps> = ({ username, onHomePage, onLogout })
                         <p className="card-description">Gerencie os usuários do seu sistema.</p>
                     </div>
                     <button
-                        className="button primary-button add-user-button">
+                        onClick={() => setMostrarFormulario(true)}
+                        className="button primary-button add-user-button"
+                    >
                         <UserPlus className="icon" />
                         Adicionar Usuário
                     </button>
@@ -164,7 +181,9 @@ const UsersPage: React.FC<UsersPageProps> = ({ username, onHomePage, onLogout })
                                             <td>{usuario.cargo}</td>
                                             <td>{usuario.departamento}</td>
                                             <td>
-                                                <span className={`status-badge ${usuario.status.toLowerCase()}`}>{usuario.status}</span>
+                                                <span className={`status-badge ${usuario.status.toLowerCase()}`}>
+                                                    {usuario.status}
+                                                </span>
                                             </td>
                                             <td className="text-right">
                                                 <button className="icon-button">
@@ -185,6 +204,17 @@ const UsersPage: React.FC<UsersPageProps> = ({ username, onHomePage, onLogout })
                     </div>
                 </div>
             </div>
+
+            {mostrarFormulario && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <CreateUsers
+                            onClose={() => setMostrarFormulario(false)}
+                            onUserCreated={handleUsuarioCriado}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

@@ -1,14 +1,23 @@
 import "./CreateUsers.css";
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../firebaseconfig";
 import { doc, setDoc } from "firebase/firestore";
 
-function CreateUsers() {
-    const navigate = useNavigate();
+interface CreateUsersProps {
+    onClose: () => void;
+    onUserCreated: (usuario: {
+        nome: string;
+        email: string;
+        cargo: string;
+        departamento: string;
+        status: string;
+        avatar?: string;
+    }) => void;
+}
+
+function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
     const [formData, setFormData] = useState({
         username: "",
         email: "",
@@ -50,16 +59,22 @@ function CreateUsers() {
                 funcao: formData.role
             });
 
+            // Informar o componente pai
+            onUserCreated({
+                nome: formData.username,
+                email: formData.email,
+                cargo: formData.role,
+                departamento: "Não definido",
+                status: "Ativo",
+                avatar: "/placeholder.svg"
+            });
+
             alert("Usuário criado com sucesso!");
-            navigate("/dashboard");
+            onClose();
         } catch (error: any) {
             console.error("Erro ao criar usuário:", error);
             alert(`Erro ao criar usuário: ${error.message}`);
         }
-    };
-
-    const handleBack = () => {
-        navigate("/dashboard");
     };
 
     return (
@@ -116,25 +131,10 @@ function CreateUsers() {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="role">Função</label>
-                    <select
-                        id="role"
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
-                    >
-                        <option value="master">Super-Administrador</option>
-                        <option value="admin">Administrador</option>
-                        <option value="operator">Operador</option>
-                        <option value="user">Consultor-Externo</option>
-                    </select>
-                </div>
-
                 <div className="form-buttons">
                     <button type="submit" className="btn-create">Criar Usuário</button>
-                    <button type="button" className="btn-back" onClick={handleBack}>
-                        Voltar
+                    <button type="button" className="btn-back" onClick={onClose}>
+                        Cancelar
                     </button>
                 </div>
             </form>
