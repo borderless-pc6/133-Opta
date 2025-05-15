@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import "./HomePage.css"
 import FilaPage from "../FilaPage/FilaPage"
 import ClienteApi from "../ClienteApi/ClienteApi"
+import UsersPage from "../UsersPage/UsersPage"
 
 interface HomePageProps {
     username: string
@@ -18,6 +19,7 @@ const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
     const [showFilaPage, setShowFilaPage] = useState(false)
     const [showClienteApi, setShowClienteApi] = useState(false)
     const [showSettingsPopout, setShowSettingsPopout] = useState(false)
+    const [showUsersPage, setShowUsersPage] = useState(false)
     const settingsRef = useRef<HTMLDivElement>(null)
 
     const handleFilaPage = () => {
@@ -33,6 +35,10 @@ const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
     const handleClienteApi = () => {
         setShowClienteApi(true)
         setShowFilaPage(false)
+    }
+
+    const handleUsersPage = () => {
+        setShowUsersPage(true)
     }
 
     const handleSettingsPopout = () => {
@@ -60,6 +66,12 @@ const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
 
     if (showClienteApi) {
         return <ClienteApi username={username} onHomePage={handleHomePage} onLogout={onLogout} />
+    }
+
+    if (showUsersPage) {
+        return <UsersPage username={username} onHomePage={handleHomePage} onLogout={onLogout} onCreateUser={function (): void {
+            throw new Error("Function not implemented.")
+        }} />
     }
 
     // Função para lidar com o clique do botão
@@ -277,7 +289,7 @@ const HomePage: React.FC<HomePageProps> = ({ username, onLogout }) => {
                                         <button className="settings-option" onClick={handleFilaPage}>
                                             <span>Filas</span>
                                         </button>
-                                        <button className="settings-option">
+                                        <button onClick={handleUsersPage} className="settings-option">
                                             <span>Usuarios</span>
                                         </button>
                                     </div>

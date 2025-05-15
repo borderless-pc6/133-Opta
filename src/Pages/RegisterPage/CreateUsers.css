@@ -1,0 +1,121 @@
+.create-user-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 500px;
+    width: 60%;
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.create-user-container h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #222;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.create-user-container:hover {
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.create-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 15px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f5f7fa;
+    color: black;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
+    background-color: #fff;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 16px;
+}
+
+.btn-create,
+.btn-back {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-create {
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+}
+
+.btn-create:hover {
+    background: linear-gradient(135deg, #357abd, #2a65a0);
+}
+
+.btn-back {
+    background-color: #f7f7f7;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-back:hover {
+    background-color: #ebebeb;
+    border-color: #ccc;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .create-user-container {
+        width: 90%;
+        padding: 24px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .btn-create,
+    .btn-back {
+        width: 100%;
+    }
+}
