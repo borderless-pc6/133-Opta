@@ -276,22 +276,22 @@ const ChatHistory: React.FC<ServiceReportProps> = ({ onLogout, onNavigateToChat,
                 <h1>Historico de Chat</h1>
 
                 <div className="filters-container">
-                    <div className="input-group">
+                    <div className="input-group-01">
                         <input type="text" placeholder="Number" />
                     </div>
-                    <div className="input-group">
+                    <div className="input-group-01">
                         <input type="text" placeholder="Protocol" />
                     </div>
-                    <div className="input-group dropdown">
+                    <div className="input-group-01 dropdown">
                         <div className="dropdown-value">Queue</div>
                         <div className="dropdown-arrow">▼</div>
                     </div>
-                    <div className="input-group dropdown">
+                    <div className="input-group-01 dropdown">
                         <div className="dropdown-value">Type</div>
                         <div className="dropdown-text">All</div>
                         <div className="dropdown-arrow">▼</div>
                     </div>
-                    <div className="input-group dropdown">
+                    <div className="input-group-01 dropdown">
                         <div className="dropdown-value">Period</div>
                         <div className="dropdown-text">Today</div>
                         <div className="dropdown-arrow">▼</div>
