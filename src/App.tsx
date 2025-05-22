@@ -25,9 +25,13 @@ function App() {
       const userCredential = await signInWithEmailAndPassword(auth, username, password)
       console.log("User signed in:", userCredential.user)
       setIsLoggedIn(true)
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Login error:", error)
-      setError(error.message || "Login failed. Please check your credentials.")
+      if (error && typeof error === "object" && "message" in error) {
+        setError((error as { message?: string }).message || "Login failed. Please check your credentials.")
+      } else {
+        setError("Login failed. Please check your credentials.")
+      }
     } finally {
       setLoading(false)
     }
@@ -45,7 +49,9 @@ function App() {
   }
 
   if (isLoggedIn) {
-    return <HomePage username={username} onLogout={handleLogout} />
+    return <HomePage username={username} onLogout={handleLogout} onNavigateToChat={function (): void {
+      throw new Error("Function not implemented.")
+    }} />
   }
 
   return (

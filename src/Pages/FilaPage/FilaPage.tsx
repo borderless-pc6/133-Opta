@@ -88,7 +88,6 @@ const FilaPage: React.FC<FilaPageProps> = ({ onHomePage, onLogout }) => {
                 )
             )
         }
-
         closeModal()
     }
 

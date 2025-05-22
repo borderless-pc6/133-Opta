@@ -1,5 +1,5 @@
 import "./CreateUsers.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../../firebaseconfig";
@@ -18,7 +18,6 @@ const notificationStyles = {
     display: "flex",
     alignItems: "center",
     zIndex: 1000,
-
     transition: "all 0.3s ease",
   },
   success: {
@@ -76,14 +75,6 @@ function InlineNotification({
   type: "success" | "error";
   onClose: () => void;
 }) {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onClose();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [onClose]);
-
   return (
     <div
       style={{ ...notificationStyles.container, ...notificationStyles[type] }}
@@ -108,7 +99,6 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
     role: "user",
   });
 
-  // Estado para controlar a notificação
   const [notification, setNotification] = useState<{
     show: boolean;
     message: string;
@@ -125,6 +115,10 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
     }));
   };
 
+  const hideNotification = () => {
+    setNotification(null);
+  };
+
   const showNotification = (message: string, type: "success" | "error") => {
     setNotification({
       show: true,
@@ -132,16 +126,14 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
       type,
     });
 
-    // Para notificações de sucesso, fechar o modal após um atraso
     if (type === "success") {
       setTimeout(() => {
-        onClose();
-      }, 2000);
+        hideNotification();
+        setTimeout(() => {
+          onClose();
+        }, 300);
+      }, 3000);
     }
-  };
-
-  const hideNotification = () => {
-    setNotification(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -161,7 +153,6 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
 
       const user = userCredential.user;
 
-      // Salvar dados no Firestore
       await setDoc(doc(db, "users", user.uid), {
         id: user.uid,
         nome: formData.username,
@@ -169,7 +160,6 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
         funcao: formData.role,
       });
 
-      // Informar o componente pai
       onUserCreated({
         nome: formData.username,
         email: formData.email,
@@ -179,7 +169,6 @@ function CreateUsers({ onClose, onUserCreated }: CreateUsersProps) {
         avatar: "/placeholder.svg",
       });
 
-      // Mostrar notificação de sucesso
       showNotification("Usuário criado com sucesso!", "success");
     } catch (error: unknown) {
       console.error("Erro ao criar usuário:", error);
