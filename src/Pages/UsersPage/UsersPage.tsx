@@ -141,14 +141,14 @@ const UsersPage: React.FC<UsersPageProps> = ({
         </div>
         <div className="card-content">
           <div className="search-filter-container">
-            <div className="search-container">
+            <div className="search-container-01">
               <Search className="search-icon" />
               <input
                 type="text"
                 placeholder="Buscar usuários..."
                 value={termoBusca}
                 onChange={(e) => setTermoBusca(e.target.value)}
-                className="search-input"
+                className="search-input-01"
               />
             </div>
             <button className="button outline-button filter-button">
